@@ -5,7 +5,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ProductCard from '@/components/ProductCard';
 import Newsletter from '@/components/Newsletter';
-import { products } from '@/components/FeaturedProducts';
+import { products, categories } from '@/components/products/productsData';
 import { cn } from '@/lib/utils';
 
 interface LocationState {
