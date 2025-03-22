@@ -1,5 +1,6 @@
 
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProductCard from './ProductCard';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -37,6 +38,20 @@ const products = [
     category: 'Storage',
     isNew: true,
   },
+  {
+    id: '13',
+    name: 'Foldable Storage Basket',
+    price: 18.99,
+    image: 'https://images.unsplash.com/photo-1597348989644-a6d4df15be76?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    category: 'Storage',
+  },
+  {
+    id: '14',
+    name: 'Under Bed Storage Box',
+    price: 34.99,
+    image: 'https://images.unsplash.com/photo-1558997519-83c9faafb721?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    category: 'Storage',
+  },
   
   // Furniture Category
   {
@@ -58,6 +73,21 @@ const products = [
     name: 'Designer Stool',
     price: 79.99,
     image: 'https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    category: 'Furniture',
+    isNew: true,
+  },
+  {
+    id: '15',
+    name: 'Modern Bookshelf',
+    price: 229.99,
+    image: 'https://images.unsplash.com/photo-1592136957897-4ab9a5a6c52e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    category: 'Furniture',
+  },
+  {
+    id: '16',
+    name: 'Plastic Side Table',
+    price: 59.99,
+    image: 'https://images.unsplash.com/photo-1631693218215-71871f1a6bf2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     category: 'Furniture',
     isNew: true,
   },
@@ -85,6 +115,21 @@ const products = [
     image: 'https://images.unsplash.com/photo-1585909695284-b029345d3a8d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     category: 'Organization',
   },
+  {
+    id: '17',
+    name: 'Drawer Dividers',
+    price: 15.99,
+    image: 'https://images.unsplash.com/photo-1591129841117-3adfd313a592?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    category: 'Organization',
+  },
+  {
+    id: '18',
+    name: 'Cable Management Box',
+    price: 24.99,
+    image: 'https://images.unsplash.com/photo-1600346019001-8d56d1b51d59?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    category: 'Organization',
+    isNew: true,
+  },
   
   // Kitchen Category
   {
@@ -109,16 +154,39 @@ const products = [
     image: 'https://images.unsplash.com/photo-1600111152185-9e376433e3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     category: 'Kitchen',
   },
+  {
+    id: '19',
+    name: 'Microwave-Safe Containers',
+    price: 27.99,
+    image: 'https://images.unsplash.com/photo-1605522561233-768ad7a8fabf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    category: 'Kitchen',
+  },
+  {
+    id: '20',
+    name: 'Utensil Holder',
+    price: 18.99,
+    image: 'https://images.unsplash.com/photo-1590341328444-eb5a0cb91455?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    category: 'Kitchen',
+    isNew: true,
+  },
 ];
+
+// Export products to be used in other components
+export { products };
 
 const categories = ['All', 'Storage', 'Furniture', 'Organization', 'Kitchen'];
 
 const FeaturedProducts = () => {
   const [activeCategory, setActiveCategory] = useState('All');
+  const navigate = useNavigate();
   
   const filteredProducts = activeCategory === 'All' 
-    ? products 
-    : products.filter(product => product.category === activeCategory);
+    ? products.slice(0, 8) // Show only first 8 products when "All" is selected
+    : products.filter(product => product.category === activeCategory).slice(0, 8); // Show only first 8 filtered products
+  
+  const handleViewAllClick = () => {
+    navigate('/products', { state: { initialCategory: activeCategory } });
+  };
   
   return (
     <section className="section-padding bg-white">
@@ -184,7 +252,11 @@ const FeaturedProducts = () => {
         
         {/* View all button */}
         <div className="flex justify-center mt-12">
-          <Button variant="outline" className="rounded-full px-8 py-6">
+          <Button 
+            variant="outline" 
+            className="rounded-full px-8 py-6"
+            onClick={handleViewAllClick}
+          >
             View All Products
           </Button>
         </div>
