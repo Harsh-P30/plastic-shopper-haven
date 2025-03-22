@@ -180,9 +180,29 @@ const FeaturedProducts = () => {
   const [activeCategory, setActiveCategory] = useState('All');
   const navigate = useNavigate();
   
-  const filteredProducts = activeCategory === 'All' 
-    ? products.slice(0, 8) // Show only first 8 products when "All" is selected
-    : products.filter(product => product.category === activeCategory).slice(0, 8); // Show only first 8 filtered products
+  // Only show 3 products per category in the featured section
+  const getFilteredProducts = () => {
+    if (activeCategory === 'All') {
+      // For 'All' category, show 3 products from each category (total 12)
+      const result = [];
+      categories.forEach(category => {
+        if (category !== 'All') {
+          const categoryProducts = products
+            .filter(product => product.category === category)
+            .slice(0, 3);
+          result.push(...categoryProducts);
+        }
+      });
+      return result;
+    } else {
+      // For specific categories, show the first 3 products
+      return products
+        .filter(product => product.category === activeCategory)
+        .slice(0, 3);
+    }
+  };
+  
+  const filteredProducts = getFilteredProducts();
   
   const handleViewAllClick = () => {
     navigate('/products', { state: { initialCategory: activeCategory } });
@@ -240,7 +260,7 @@ const FeaturedProducts = () => {
         </div>
         
         {/* Products grid for larger screens */}
-        <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+        <div className="hidden md:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
           {filteredProducts.map((product, index) => (
             <ProductCard
               key={product.id}

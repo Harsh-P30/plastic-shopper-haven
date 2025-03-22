@@ -19,6 +19,7 @@ const Products = () => {
   
   const categories = ['All', 'Storage', 'Furniture', 'Organization', 'Kitchen'];
   
+  // Show all products for the selected category (no limit)
   const filteredProducts = activeCategory === 'All' 
     ? products 
     : products.filter(product => product.category === activeCategory);
