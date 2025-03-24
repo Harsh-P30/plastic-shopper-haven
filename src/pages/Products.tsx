@@ -1,12 +1,13 @@
 
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useSearchParams } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ProductCard from '@/components/ProductCard';
 import Newsletter from '@/components/Newsletter';
 import { products, categories } from '@/components/products/productsData';
 import { cn } from '@/lib/utils';
+import { toast } from "sonner";
 
 interface LocationState {
   initialCategory?: string;
@@ -14,20 +15,26 @@ interface LocationState {
 
 const Products = () => {
   const location = useLocation();
-  const { initialCategory = 'All' } = (location.state as LocationState) || {};
-  const [activeCategory, setActiveCategory] = useState(initialCategory);
+  const [searchParams] = useSearchParams();
+  const queryCategory = searchParams.get('category');
   
-  const categories = ['All', 'Storage', 'Furniture', 'Organization', 'Kitchen'];
+  const { initialCategory = 'All' } = (location.state as LocationState) || {};
+  const [activeCategory, setActiveCategory] = useState(queryCategory || initialCategory);
   
   // Show all products for the selected category (no limit)
   const filteredProducts = activeCategory === 'All' 
     ? products 
-    : products.filter(product => product.category === activeCategory);
+    : products.filter(product => product.category.toLowerCase() === activeCategory.toLowerCase());
   
   useEffect(() => {
     // Scroll to top when component mounts
     window.scrollTo(0, 0);
-  }, []);
+    
+    // Show toast notification when category changes via URL
+    if (queryCategory) {
+      toast.success(`Viewing ${queryCategory} products`);
+    }
+  }, [queryCategory]);
   
   return (
     <div className="min-h-screen bg-background">
@@ -57,7 +64,7 @@ const Products = () => {
                     onClick={() => setActiveCategory(category)}
                     className={cn(
                       "px-4 py-1.5 text-sm rounded-full whitespace-nowrap transition-all duration-300",
-                      activeCategory === category 
+                      activeCategory.toLowerCase() === category.toLowerCase() 
                         ? "bg-black text-white" 
                         : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                     )}
