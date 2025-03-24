@@ -1,8 +1,10 @@
 
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { ArrowRight } from 'lucide-react';
+import { Card } from '@/components/ui/card';
 
 interface Category {
   id: string;
@@ -52,7 +54,6 @@ const CategoriesPage = () => {
   ];
 
   useEffect(() => {
-    // Scroll to top when component mounts
     window.scrollTo(0, 0);
   }, []);
 
@@ -99,7 +100,7 @@ interface CategoryCardProps {
 
 const CategoryCard = ({ category, index }: CategoryCardProps) => {
   return (
-    <div className={`group relative rounded-lg overflow-hidden cursor-pointer animate-scale-in animate-delay-${index * 100}`}>
+    <Link to={`/products?category=${category.id}`} className={`group relative rounded-lg overflow-hidden cursor-pointer animate-scale-in animate-delay-${index * 100}`}>
       <div className="aspect-[4/3]">
         <img 
           src={category.image} 
@@ -120,7 +121,7 @@ const CategoryCard = ({ category, index }: CategoryCardProps) => {
           <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
