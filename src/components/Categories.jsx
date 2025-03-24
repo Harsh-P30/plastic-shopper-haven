@@ -1,5 +1,6 @@
 
 import { ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 
 const categories = [
@@ -65,15 +66,15 @@ const CategoryCard = ({ category, index }) => {
         <h3 className="text-2xl font-medium mb-2">{category.name}</h3>
         <p className="text-white/80 mb-4 max-w-xs">{category.description}</p>
         
-        <a 
-          href={`/categories/${category.id}`}
+        <Link 
+          to="/categories"
           className="inline-flex items-center text-sm font-medium"
         >
           <span className="border-b border-white/30 hover:border-white transition-colors">
             Shop Now
           </span>
           <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-        </a>
+        </Link>
       </div>
     </div>
   );
