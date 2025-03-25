@@ -1,12 +1,8 @@
 
-import { 
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious
-} from '@/components/ui/carousel';
-import ProductCard from '@/components/ProductCard';
+import { useRef } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import ProductCardWrapper from '@/components/ProductCardWrapper';
 
 interface Product {
   id: string;
@@ -15,6 +11,7 @@ interface Product {
   image: string;
   category: string;
   isNew?: boolean;
+  originalPrice?: number;
 }
 
 interface ProductsCarouselProps {
@@ -22,24 +19,64 @@ interface ProductsCarouselProps {
 }
 
 const ProductsCarousel = ({ products }: ProductsCarouselProps) => {
+  const carouselRef = useRef<HTMLDivElement>(null);
+  
+  const scrollLeft = () => {
+    if (carouselRef.current) {
+      carouselRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+    }
+  };
+  
+  const scrollRight = () => {
+    if (carouselRef.current) {
+      carouselRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+    }
+  };
+  
+  if (products.length === 0) return null;
+  
   return (
-    <div className="block md:hidden mb-8">
-      <Carousel className="w-full">
-        <CarouselContent>
-          {products.map((product, index) => (
-            <CarouselItem key={product.id} className="md:basis-1/2 lg:basis-1/3">
-              <ProductCard
-                {...product}
-                className={`animate-delay-${index * 100}`}
-              />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <div className="flex justify-center mt-4">
-          <CarouselPrevious className="relative static left-0 translate-y-0 mr-2" />
-          <CarouselNext className="relative static right-0 translate-y-0" />
-        </div>
-      </Carousel>
+    <div className="relative md:hidden mb-12">
+      {/* Navigation buttons */}
+      <div className="absolute -left-2 top-1/2 transform -translate-y-1/2 z-10">
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          className="rounded-full bg-white/80 shadow-sm"
+          onClick={scrollLeft}
+        >
+          <ChevronLeft className="w-5 h-5" />
+        </Button>
+      </div>
+      
+      <div className="absolute -right-2 top-1/2 transform -translate-y-1/2 z-10">
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          className="rounded-full bg-white/80 shadow-sm"
+          onClick={scrollRight}
+        >
+          <ChevronRight className="w-5 h-5" />
+        </Button>
+      </div>
+      
+      {/* Carousel */}
+      <div 
+        ref={carouselRef}
+        className="flex overflow-x-auto pb-6 hide-scrollbar snap-x snap-mandatory"
+      >
+        {products.map((product, index) => (
+          <div 
+            key={product.id} 
+            className="min-w-[80%] px-2 snap-start first:pl-0 last:pr-0"
+          >
+            <ProductCardWrapper
+              {...product}
+              className={`animate-delay-${index * 100}`}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

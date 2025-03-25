@@ -44,15 +44,17 @@ const Navbar = () => {
             <button className="p-1 opacity-70 hover:opacity-100 transition-opacity duration-300">
               <Search className="w-5 h-5" />
             </button>
-            <button className="p-1 opacity-70 hover:opacity-100 transition-opacity duration-300">
+            <Link to="/sale" className="p-1 opacity-70 hover:opacity-100 transition-opacity duration-300">
               <Heart className="w-5 h-5" />
-            </button>
+            </Link>
             <button className="p-1 opacity-70 hover:opacity-100 transition-opacity duration-300">
               <User className="w-5 h-5" />
             </button>
-            <Button variant="outline" size="sm" className="flex items-center gap-2 rounded-full">
-              <ShoppingBag className="w-4 h-4" />
-              <span>0</span>
+            <Button variant="outline" size="sm" className="flex items-center gap-2 rounded-full" asChild>
+              <Link to="/cart">
+                <ShoppingBag className="w-4 h-4" />
+                <span>2</span>
+              </Link>
             </Button>
           </div>
 
@@ -83,24 +85,26 @@ const Navbar = () => {
           <Link to="/categories" className="py-2 border-b border-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Categories</Link>
           <Link to="/about" className="py-2 border-b border-gray-100" onClick={() => setIsMobileMenuOpen(false)}>About</Link>
           <Link to="/contact" className="py-2 border-b border-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Contact</Link>
+          <Link to="/new-arrivals" className="py-2 border-b border-gray-100" onClick={() => setIsMobileMenuOpen(false)}>New Arrivals</Link>
+          <Link to="/sale" className="py-2 border-b border-gray-100" onClick={() => setIsMobileMenuOpen(false)}>Sale</Link>
         </nav>
         <div className="flex justify-around mt-auto pt-8">
           <button className="p-2 flex flex-col items-center text-xs">
             <Search className="w-6 h-6 mb-1" />
             Search
           </button>
-          <button className="p-2 flex flex-col items-center text-xs">
+          <Link to="/sale" className="p-2 flex flex-col items-center text-xs" onClick={() => setIsMobileMenuOpen(false)}>
             <Heart className="w-6 h-6 mb-1" />
             Wishlist
-          </button>
+          </Link>
           <button className="p-2 flex flex-col items-center text-xs">
             <User className="w-6 h-6 mb-1" />
             Account
           </button>
-          <button className="p-2 flex flex-col items-center text-xs">
+          <Link to="/cart" className="p-2 flex flex-col items-center text-xs" onClick={() => setIsMobileMenuOpen(false)}>
             <ShoppingBag className="w-6 h-6 mb-1" />
-            Cart (0)
-          </button>
+            Cart (2)
+          </Link>
         </div>
       </div>
     </header>
