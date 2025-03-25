@@ -21,10 +21,40 @@ const Products = () => {
   const { initialCategory = 'All' } = (location.state as LocationState) || {};
   const [activeCategory, setActiveCategory] = useState(queryCategory || initialCategory);
   
-  // Show all products for the selected category (no limit)
-  const filteredProducts = activeCategory === 'All' 
-    ? products 
-    : products.filter(product => product.category.toLowerCase() === activeCategory.toLowerCase());
+  // Get products based on category
+  const getFilteredProducts = () => {
+    if (activeCategory === 'All') {
+      return products;
+    } else {
+      return products.filter(product => 
+        product.category.toLowerCase() === activeCategory.toLowerCase()
+      );
+    }
+  };
+  
+  const filteredProducts = getFilteredProducts();
+  
+  // Group products by category when viewing "All"
+  const groupedProducts = () => {
+    if (activeCategory !== 'All') {
+      return null;
+    }
+    
+    const groups: Record<string, typeof products> = {};
+    
+    // Create groups for each category
+    categories.forEach(category => {
+      if (category !== 'All') {
+        groups[category] = products.filter(
+          product => product.category.toLowerCase() === category.toLowerCase()
+        );
+      }
+    });
+    
+    return groups;
+  };
+  
+  const productGroups = groupedProducts();
   
   useEffect(() => {
     // Scroll to top when component mounts
@@ -58,7 +88,7 @@ const Products = () => {
             {/* Category filter */}
             <div className="flex justify-center mb-12 overflow-x-auto pb-2 no-scrollbar">
               <div className="flex space-x-2 md:space-x-4">
-                {categories.map((category, index) => (
+                {categories.map((category) => (
                   <button
                     key={category}
                     onClick={() => setActiveCategory(category)}
@@ -82,15 +112,46 @@ const Products = () => {
               </p>
             </div>
             
-            {/* Products grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
-              {filteredProducts.map((product) => (
-                <ProductCard
-                  key={product.id}
-                  {...product}
-                />
-              ))}
-            </div>
+            {/* If viewing "All", show products grouped by category */}
+            {activeCategory === 'All' && productGroups && (
+              <div className="space-y-16">
+                {Object.entries(productGroups).map(([category, categoryProducts]) => (
+                  categoryProducts.length > 0 && (
+                    <div key={category} className="category-group">
+                      <div className="flex items-center justify-between mb-6">
+                        <h2 className="text-2xl font-medium">{category}</h2>
+                        <button 
+                          onClick={() => setActiveCategory(category)}
+                          className="text-sm font-medium hover:underline"
+                        >
+                          View all {category} products
+                        </button>
+                      </div>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+                        {categoryProducts.map((product) => (
+                          <ProductCard
+                            key={product.id}
+                            {...product}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )
+                ))}
+              </div>
+            )}
+            
+            {/* If not viewing "All", show standard product grid */}
+            {activeCategory !== 'All' && (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+                {filteredProducts.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    {...product}
+                  />
+                ))}
+              </div>
+            )}
             
             {/* Empty state */}
             {filteredProducts.length === 0 && (
