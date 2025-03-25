@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -19,7 +20,7 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="space-y-6">
             <div>
-              <a href="/" className="font-bold text-xl tracking-tight">PLASTIC</a>
+              <Link to="/" className="font-bold text-xl tracking-tight">PLASTIC</Link>
               <p className="mt-4 text-muted-foreground text-sm max-w-xs">
                 We create premium plastic products that combine aesthetic beauty with functional design.
               </p>
@@ -36,12 +37,12 @@ const Footer = () => {
           <div>
             <h3 className="font-medium text-sm uppercase tracking-wider mb-4">Shop</h3>
             <ul className="space-y-3">
-              <FooterLink href="/products" label="All Products" />
-              <FooterLink href="/categories/kitchen" label="Kitchen" />
-              <FooterLink href="/categories/organization" label="Organization" />
-              <FooterLink href="/categories/furniture" label="Furniture" />
-              <FooterLink href="/new-arrivals" label="New Arrivals" />
-              <FooterLink href="/sale" label="Sale" />
+              <FooterLink to="/products" label="All Products" />
+              <FooterLink to="/categories/kitchen" label="Kitchen" />
+              <FooterLink to="/categories/organization" label="Organization" />
+              <FooterLink to="/categories/furniture" label="Furniture" />
+              <FooterLink to="/new-arrivals" label="New Arrivals" />
+              <FooterLink to="/sale" label="Sale" />
             </ul>
           </div>
           
@@ -49,12 +50,12 @@ const Footer = () => {
           <div>
             <h3 className="font-medium text-sm uppercase tracking-wider mb-4">Company</h3>
             <ul className="space-y-3">
-              <FooterLink href="/about" label="About Us" />
-              <FooterLink href="/sustainability" label="Sustainability" />
-              <FooterLink href="/careers" label="Careers" />
-              <FooterLink href="/press" label="Press" />
-              <FooterLink href="/blog" label="Blog" />
-              <FooterLink href="/contact" label="Contact" />
+              <FooterLink to="/about" label="About Us" />
+              <FooterLink to="/sustainability" label="Sustainability" />
+              <FooterLink to="/careers" label="Careers" />
+              <FooterLink to="/press" label="Press" />
+              <FooterLink to="/blog" label="Blog" />
+              <FooterLink to="/contact" label="Contact" />
             </ul>
           </div>
           
@@ -75,8 +76,8 @@ const Footer = () => {
                 <span>hello@plasticdesign.com</span>
               </li>
               <li className="pt-2">
-                <Button variant="outline" className="w-full rounded-md">
-                  Get Directions
+                <Button variant="outline" className="w-full rounded-md" asChild>
+                  <Link to="/contact">Contact Us</Link>
                 </Button>
               </li>
             </ul>
@@ -91,10 +92,10 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} PLASTIC. All rights reserved.
           </div>
           <div className="order-1 md:order-2 flex flex-wrap justify-center gap-x-8 gap-y-2">
-            <a href="/terms" className="hover:underline">Terms of Service</a>
-            <a href="/privacy" className="hover:underline">Privacy Policy</a>
-            <a href="/shipping" className="hover:underline">Shipping & Returns</a>
-            <a href="/faq" className="hover:underline">FAQ</a>
+            <Link to="/terms" className="hover:underline">Terms of Service</Link>
+            <Link to="/privacy" className="hover:underline">Privacy Policy</Link>
+            <Link to="/shipping" className="hover:underline">Shipping & Returns</Link>
+            <Link to="/faq" className="hover:underline">FAQ</Link>
           </div>
         </div>
       </div>
@@ -119,18 +120,18 @@ const SocialLink = ({ href, Icon }: SocialLinkProps) => (
 );
 
 interface FooterLinkProps {
-  href: string;
+  to: string;
   label: string;
 }
 
-const FooterLink = ({ href, label }: FooterLinkProps) => (
+const FooterLink = ({ to, label }: FooterLinkProps) => (
   <li>
-    <a 
-      href={href} 
+    <Link 
+      to={to} 
       className="text-muted-foreground hover:text-foreground transition-colors"
     >
       {label}
-    </a>
+    </Link>
   </li>
 );
 
