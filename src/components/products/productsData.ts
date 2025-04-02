@@ -83,7 +83,7 @@ export const products = [
     isNew: true,
   },
   
-  // Organization Category
+  // Organization Category - Added more products to this category
   {
     id: '3',
     name: 'Plastic Desktop Organizer',
@@ -123,6 +123,37 @@ export const products = [
     image: 'https://images.unsplash.com/photo-1600346019001-8d56d1b51d59?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     category: 'Organization',
     isNew: true,
+  },
+  {
+    id: '21',
+    name: 'Modular Cube Storage',
+    price: 42.99,
+    image: 'https://images.unsplash.com/photo-1582215728431-8a55b31a27a5?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    category: 'Organization',
+  },
+  {
+    id: '22',
+    name: 'Plastic Closet Organizer',
+    price: 36.99,
+    originalPrice: 44.99,
+    image: 'https://images.unsplash.com/photo-1587590227264-0a645ef7c586?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    category: 'Organization',
+    isNew: true,
+  },
+  {
+    id: '23',
+    name: 'Document Filing Box',
+    price: 18.99,
+    image: 'https://images.unsplash.com/photo-1544239265-ee5eedde5469?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    category: 'Organization',
+  },
+  {
+    id: '24',
+    name: 'Plastic Utility Cart',
+    price: 59.99,
+    originalPrice: 69.99,
+    image: 'https://images.unsplash.com/photo-1585909695284-b029345d3a8d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    category: 'Organization',
   },
   
   // Kitchen Category
