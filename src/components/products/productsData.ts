@@ -6,6 +6,7 @@ export const products = [
     id: '1',
     name: 'Plastic Storage Box Set',
     price: 29.99,
+    originalPrice: 39.99, // Added original price for discount
     image: 'https://images.unsplash.com/photo-1594225372162-25b9f8a68a22?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     category: 'Storage',
     isNew: true,
@@ -21,6 +22,7 @@ export const products = [
     id: '6',
     name: 'Plastic Drawer Organizer',
     price: 45.99,
+    originalPrice: 59.99, // Added original price for discount
     image: 'https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     category: 'Storage',
     isNew: true,
@@ -45,6 +47,7 @@ export const products = [
     id: '2',
     name: 'Modern Plastic Chair',
     price: 149.99,
+    originalPrice: 179.99, // Added original price for discount
     image: 'https://images.unsplash.com/photo-1551298370-9d3d53740c72?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     category: 'Furniture',
   },
@@ -67,6 +70,7 @@ export const products = [
     id: '15',
     name: 'Plastic Bookshelf',
     price: 229.99,
+    originalPrice: 299.99, // Added original price for discount
     image: 'https://images.unsplash.com/photo-1592136957897-4ab9a5a6c52e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     category: 'Furniture',
   },
@@ -84,6 +88,7 @@ export const products = [
     id: '3',
     name: 'Plastic Desktop Organizer',
     price: 19.99,
+    originalPrice: 24.99, // Added original price for discount
     image: 'https://images.unsplash.com/photo-1614113489855-66422ad300a4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     category: 'Organization',
     isNew: true,
@@ -99,6 +104,7 @@ export const products = [
     id: '10',
     name: 'Plastic Wall Organizer',
     price: 49.99,
+    originalPrice: 64.99, // Added original price for discount
     image: 'https://images.unsplash.com/photo-1585909695284-b029345d3a8d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     category: 'Organization',
   },
@@ -113,6 +119,7 @@ export const products = [
     id: '18',
     name: 'Plastic Cable Management Box',
     price: 24.99,
+    originalPrice: 29.99, // Added original price for discount
     image: 'https://images.unsplash.com/photo-1600346019001-8d56d1b51d59?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     category: 'Organization',
     isNew: true,
@@ -123,6 +130,7 @@ export const products = [
     id: '4',
     name: 'Plastic Kitchen Container Set',
     price: 39.99,
+    originalPrice: 49.99, // Added original price for discount
     image: 'https://images.unsplash.com/photo-1621972660772-6a0427dee658?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     category: 'Kitchen',
   },
@@ -138,6 +146,7 @@ export const products = [
     id: '12',
     name: 'Plastic Cutting Board Set',
     price: 29.99,
+    originalPrice: 34.99, // Added original price for discount
     image: 'https://images.unsplash.com/photo-1600111152185-9e376433e3f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
     category: 'Kitchen',
   },
@@ -167,4 +176,5 @@ export interface Product {
   image: string;
   category: string;
   isNew?: boolean;
+  originalPrice?: number;
 }
