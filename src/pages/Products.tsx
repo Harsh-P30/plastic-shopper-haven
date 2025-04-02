@@ -7,6 +7,7 @@ import ProductsGrid from '@/components/products/ProductsGrid';
 import ProductsCarousel from '@/components/products/ProductsCarousel';
 import Newsletter from '@/components/Newsletter';
 import { products, categories } from '@/components/products/productsData';
+import ProductCardWrapper from '@/components/ProductCardWrapper';
 import { cn } from '@/lib/utils';
 import { toast } from "sonner";
 import { Button } from '@/components/ui/button';
