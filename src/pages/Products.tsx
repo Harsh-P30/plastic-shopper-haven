@@ -57,6 +57,15 @@ const Products = () => {
     }
   }, [queryCategory]);
   
+  // Debug log to see what's happening
+  console.log({
+    activeCategory,
+    filteredProductsCount: filteredProducts.length,
+    showFeatured,
+    showNew,
+    showDiscount
+  });
+  
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -105,7 +114,7 @@ const Products = () => {
               </div>
             )}
             
-            {/* If viewing "All", show products grouped by category */}
+            {/* If viewing "All" and no filters active, show products grouped by category */}
             {activeCategory === 'All' && !showFeatured && !showNew && !showDiscount && productGroups && (
               <CategoryGroups 
                 categoryGroups={productGroups}
@@ -114,8 +123,8 @@ const Products = () => {
               />
             )}
             
-            {/* If not viewing "All", or no special filters are active, show standard product grid */}
-            {(activeCategory !== 'All' || !(showFeatured || showNew || showDiscount)) && filteredProducts.length > 0 && (
+            {/* If not viewing "All" or no filters active, show standard product grid */}
+            {activeCategory !== 'All' && !showFeatured && !showNew && !showDiscount && filteredProducts.length > 0 && (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
                 {getSortedProducts(filteredProducts).map((product) => (
                   <ProductCardWrapper
