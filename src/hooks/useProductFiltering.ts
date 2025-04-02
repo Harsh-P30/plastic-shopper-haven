@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 export type SortOption = 'newest' | 'price-low-high' | 'price-high-low' | 'featured';
 
@@ -16,12 +16,12 @@ interface Product {
 export const useProductFiltering = (allProducts: Product[], initialCategory: string) => {
   const [activeCategory, setActiveCategory] = useState(initialCategory);
   const [sortBy, setSortBy] = useState<SortOption>('featured');
-  const [showFeatured, setShowFeatured] = useState(true);
-  const [showNew, setShowNew] = useState(true);
-  const [showDiscount, setShowDiscount] = useState(true);
+  const [showFeatured, setShowFeatured] = useState(false);
+  const [showNew, setShowNew] = useState(false);
+  const [showDiscount, setShowDiscount] = useState(false);
   
   // Get products based on category
-  const getFilteredProducts = () => {
+  const filteredProducts = useMemo(() => {
     if (activeCategory === 'All') {
       return allProducts;
     } else {
@@ -29,9 +29,7 @@ export const useProductFiltering = (allProducts: Product[], initialCategory: str
         product.category.toLowerCase() === activeCategory.toLowerCase()
       );
     }
-  };
-  
-  const filteredProducts = getFilteredProducts();
+  }, [allProducts, activeCategory]);
   
   // Sort products
   const getSortedProducts = (products: Product[]) => {
@@ -48,16 +46,20 @@ export const useProductFiltering = (allProducts: Product[], initialCategory: str
     }
   };
   
-  const sortedProducts = getSortedProducts(filteredProducts);
-  
   // Featured products
-  const featuredProducts = filteredProducts.filter(product => product.isNew).slice(0, 4);
+  const featuredProducts = useMemo(() => 
+    filteredProducts.filter(product => product.isNew).slice(0, 4),
+  [filteredProducts]);
   
   // New products
-  const newProducts = filteredProducts.filter(product => product.isNew);
+  const newProducts = useMemo(() => 
+    filteredProducts.filter(product => product.isNew),
+  [filteredProducts]);
   
   // Discounted products
-  const discountedProducts = filteredProducts.filter(product => product.originalPrice && product.originalPrice > product.price);
+  const discountedProducts = useMemo(() => 
+    filteredProducts.filter(product => product.originalPrice && product.originalPrice > product.price),
+  [filteredProducts]);
   
   // Group products by category when viewing "All"
   const groupProductsByCategory = (categories: string[]) => {
@@ -91,7 +93,6 @@ export const useProductFiltering = (allProducts: Product[], initialCategory: str
     showDiscount,
     setShowDiscount,
     filteredProducts,
-    sortedProducts,
     featuredProducts,
     newProducts,
     discountedProducts,

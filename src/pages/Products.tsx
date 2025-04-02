@@ -106,7 +106,7 @@ const Products = () => {
             )}
             
             {/* If viewing "All", show products grouped by category */}
-            {activeCategory === 'All' && productGroups && (
+            {activeCategory === 'All' && !showFeatured && !showNew && !showDiscount && productGroups && (
               <CategoryGroups 
                 categoryGroups={productGroups}
                 getSortedProducts={getSortedProducts}
@@ -114,8 +114,8 @@ const Products = () => {
               />
             )}
             
-            {/* If not viewing "All", show standard product grid */}
-            {activeCategory !== 'All' && !(showFeatured || showNew || showDiscount) && (
+            {/* If not viewing "All", or no special filters are active, show standard product grid */}
+            {(activeCategory !== 'All' || !(showFeatured || showNew || showDiscount)) && filteredProducts.length > 0 && (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
                 {getSortedProducts(filteredProducts).map((product) => (
                   <ProductCardWrapper
